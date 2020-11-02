@@ -1,0 +1,10 @@
+FROM node:10 as build
+WORKDIR /app
+COPY . .
+RUN npm install
+
+FROM gcr.io/distroless/nodejs:10
+COPY --from=build /app /app
+WORKDIR /app
+EXPOSE 3000
+CMD ["index.js"]
